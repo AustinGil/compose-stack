@@ -1,0 +1,68 @@
+version: "3"
+services:
+  node:
+    image: ${PROJECT_NAME}/node:latest
+    container_name: ${PROJECT_NAME}_node
+    build:
+      context: .
+      dockerfile: ./node/Dockerfile
+    volumes:
+      - ./node:/node
+    expose:
+      - ${NODE_PORT}
+    # depends_on:
+    #   - mysql
+    # environment:
+    #   DB_HOST: mysql # target container name
+    #   MYSQL_DATABASE: ${MYSQL_DATABASE}
+    #   MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    #   MYSQL_USER: ${MYSQL_USER}
+    #   MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always
+
+  # mysql:
+  #   image: mysql:5.7
+  #   environment:
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_USER: ${MYSQL_USER}
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #   volumes:
+  #     - ./mysql:/var/lib/mysql
+  #   # ports:
+  #   #   - ${MYSQL_PORT}:${MYSQL_PORT}
+  #   restart: always
+  #   expose:
+  #     - ${MYSQL_PORT}
+
+  nginx:
+    image: ${PROJECT_NAME}/nginx:latest
+    container_name: ${PROJECT_NAME}_nginx
+    build:
+      context: ./nginx
+      args:
+        domain: ${DOMAIN}
+        response: proxy_pass https://node:${NODE_PORT}
+    volumes:
+      - ./www:/data/www
+      - ./certbot/letsencrypt/:/data/letsencrypt
+      - ./certbot/certs:/data/certs
+    ports:
+      - 80:80
+      - 443:443
+    # depends_on:
+    #   - node
+    restart: always
+
+  certbot:
+    image: ${PROJECT_NAME}/certbot:latest
+    build:
+      context: .
+      dockerfile: ./certbot/Dockerfile
+    volumes:
+      - ./certbot/letsencrypt:/data/letsencrypt
+      - ./certbot/certs:/data/certs
+    environment:
+      DOMAIN: ${DOMAIN}
+      EMAIL: ${EMAIL}
+    tty: true

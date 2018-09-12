@@ -19,15 +19,13 @@ services:
       context: ./nginx
       args:
         domain: ${DOMAIN}
-        response: proxy_pass https://node:${NODE_PORT}
+        response: proxy_pass http://node:${NODE_PORT}
     volumes:
       - ./certbot/letsencrypt/:/data/letsencrypt
       - ./certbot/certs:/data/certs
     ports:
       - 80:80
       - 443:443
-    # depends_on:
-    #   - node
     restart: always
 
   certbot:

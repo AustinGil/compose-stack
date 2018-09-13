@@ -20,4 +20,5 @@ selenium-debug.log
 *.sqlite3
 
 certs
+.well-known
 !.gitkeep

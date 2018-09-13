@@ -1,21 +1,67 @@
 {
-  "name": "node-api",
+  "name": "matryxexplorer",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A Node.js RESTful API for reading the Matryx Platform smart contracts",
+  "main": "server.js",
   "scripts": {
-    "start": "./node_modules/forever/bin/forever index.js",
-    "dev": "nodemon index.js"
+    "test": "echo \"Running mocha tests\" && mocha --exit",
+    "dev": "echo \"Starting MatryxExplorer in development\" && nodemon server.js ",
+    "start": "echo \"Starting MatryxExplorer in development with forever\" && ./node_modules/forever/bin/forever server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matryx/MatryxExplorer.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api",
+    "matryx",
+    "blockchain",
+    "ethereum"
+  ],
+  "author": "Sam Hessenauer - Nanome Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matryx/MatryxExplorer/issues"
+  },
+  "homepage": "https://github.com/matryx/MatryxExplorer#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.2",
     "cors": "^2.8.4",
-    "dotenv": "^6.0.0",
+    "dotenv": "^5.0.1",
+    "ethers": "^3.0.26",
     "express": "^4.16.3",
     "forever": "^0.15.3",
+    "form-data": "^2.3.2",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
     "helmet": "^3.13.0",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "node-fetch": "^2.1.1",
+    "request": "^2.85.0",
+    "tmp": "0.0.33",
+    "util": "^0.10.3",
+    "web3": "github:ethereum/web3.js"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "babel-plugin-captains-log": "^1.0.1",
+    "eslint": "^4.12.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "mocha": "^5.0.4",
+    "mongoose": "^5.0.16",
+    "nodemon": "^1.17.5",
+    "standard": "^11.0.1"
+  },
+  "resolutions": {
+    "libp2p-switch": "~0.40.4"
   }
 }

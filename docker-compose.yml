@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./node/Dockerfile
+      args:
+        node_env: ${ENVIRONMENT}
     volumes:
       - ./node:/node
     expose:
@@ -20,9 +22,9 @@ services:
       args:
         domain: ${DOMAIN}
         response: proxy_pass http://node:${NODE_PORT}
-    depends_on:
-      - certbot
-      - node
+    # depends_on:
+    #   - certbot
+    #   - node
     volumes:
       - ./certbot/letsencrypt/:/data/letsencrypt
       - ./certbot/certs:/data/certs

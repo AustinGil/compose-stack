@@ -3,6 +3,9 @@ FROM node:carbon
 
 # RUN apt-get update && apt-get install -qqy nano
 
+ARG node_env
+ENV NODE_ENV $node_env
+
 WORKDIR /node
 
 COPY ./node .

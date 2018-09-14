@@ -20,6 +20,9 @@ services:
       args:
         domain: ${DOMAIN}
         response: proxy_pass http://node:${NODE_PORT}
+    depends_on:
+      - certbot
+      - node
     volumes:
       - ./certbot/letsencrypt/:/data/letsencrypt
       - ./certbot/certs:/data/certs

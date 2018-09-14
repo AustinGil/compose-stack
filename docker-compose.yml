@@ -8,6 +8,8 @@ services:
       dockerfile: ./node/Dockerfile
     volumes:
       - ./node:/node
+    environment:
+      NODE_ENV: ${ENVIRONMENT}
     expose:
       - ${NODE_PORT}
     restart: always

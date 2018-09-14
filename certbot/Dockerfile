@@ -1,6 +1,6 @@
 FROM certbot/certbot
 
-COPY ./entrypoint.sh /root/scripts/
+COPY certbot/entrypoint.sh /root/scripts/
 
 RUN apk add --no-cache bash
 

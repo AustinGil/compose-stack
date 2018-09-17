@@ -6,8 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./node/Dockerfile
-    volumes:
-      - ./node:/node
+      args:
+        node_env: ${ENVIRONMENT}
     expose:
       - ${NODE_PORT}
     restart: always
@@ -41,4 +41,3 @@ services:
       DOMAIN: ${DOMAIN}
       EMAIL: ${EMAIL}
       ENVIRONMENT: ${ENVIRONMENT}
-    tty: true

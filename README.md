@@ -3,13 +3,12 @@
 Ubuntu:
 
 1.  `sudo apt-get update`
-2.  `sudo apt-get install \ apt-transport-https \ ca-certificates \ curl \ software-properties-common`
-3.  `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-4.  `sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"`
-5.  `sudo apt-get update`
-6.  `sudo apt-get install docker-ce`
-7.  `sudo usermod -aG docker $USER`
-8.  Restart terminal session
+2.  `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+3.  `sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"`
+4.  `sudo apt-get update`
+5.  `sudo apt-get install -y docker-ce`
+6.  `sudo usermod -aG docker $USER`
+7.  Restart terminal session
 
 CentOS (AWS Linux AMI):
 
@@ -28,7 +27,7 @@ Linux:
 
 ## Getting Server Up
 
-1. Edit variables in .env file (unless you want to pass in during run)
+1. Copy sample.env to .env and edit variables (optionally pass in variables during run)
 2. Build images: `docker-compose build` (optionally accepts environment variables)
 3. Run containers: `docker-compose up` (optionally accepts environment variables)
    **Note:** You can also build and run with the same command: `docker-compose up --build`

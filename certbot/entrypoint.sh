@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $ENVIRONMENT -ne "development" ]; then
+if [ $ENVIRONMENT != "development" ]; then
 	# Run certbot to get cert
 	# Add --staging for testing purposes
 	# Add --force-renewal to force a renew

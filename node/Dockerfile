@@ -1,6 +1,8 @@
 FROM node:alpine
 
-# RUN apk add --no-cache bash nano
+RUN apk update && apk upgrade && \
+	apk add --no-cache bash git
+# openssh nano
 
 ARG node_env
 

@@ -1,16 +1,14 @@
-# Latest version of Node
-FROM node:carbon
+FROM node:alpine
 
-# RUN apt-get update && apt-get install -qqy nano
+# RUN apk add --no-cache bash nano
+
+ARG node_env
 
 WORKDIR /node
 
 COPY ./node .
 COPY .env ..
 
-RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
+RUN NODE_ENV=$node_env npm install
 
-CMD npm start
-
+CMD NODE_ENV=$node_env npm start

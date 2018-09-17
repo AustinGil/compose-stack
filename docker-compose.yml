@@ -6,15 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./node/Dockerfile
-<<<<<<< HEAD
-    volumes:
-      - ./node:/node
-    environment:
-      NODE_ENV: ${ENVIRONMENT}
-=======
       args:
         node_env: ${ENVIRONMENT}
->>>>>>> master
     expose:
       - ${NODE_PORT}
     restart: always
@@ -27,9 +20,6 @@ services:
       args:
         domain: ${DOMAIN}
         response: proxy_pass http://node:${NODE_PORT}
-    # depends_on:
-    #   - certbot
-    #   - node
     volumes:
       - ./certbot/letsencrypt/:/data/letsencrypt
       - ./certbot/certs:/data/certs

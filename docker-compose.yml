@@ -12,6 +12,20 @@ services:
       - ${NODE_PORT}
     restart: always
 
+  certbot:
+    image: ${PROJECT_NAME}/certbot:latest
+    container_name: ${PROJECT_NAME}_certbot
+    build:
+      context: .
+      dockerfile: ./certbot/Dockerfile
+    volumes:
+      - ./certbot/letsencrypt:/data/letsencrypt
+      - ./certbot/certs:/data/certs
+    environment:
+      DOMAIN: ${DOMAIN}
+      EMAIL: ${EMAIL}
+      ENVIRONMENT: ${ENVIRONMENT}
+
   nginx:
     image: ${PROJECT_NAME}/nginx:latest
     container_name: ${PROJECT_NAME}_nginx
@@ -27,17 +41,3 @@ services:
       - 80:80
       - 443:443
     restart: always
-
-  certbot:
-    image: ${PROJECT_NAME}/certbot:latest
-    container_name: ${PROJECT_NAME}_certbot
-    build:
-      context: .
-      dockerfile: ./certbot/Dockerfile
-    volumes:
-      - ./certbot/letsencrypt:/data/letsencrypt
-      - ./certbot/certs:/data/certs
-    environment:
-      DOMAIN: ${DOMAIN}
-      EMAIL: ${EMAIL}
-      ENVIRONMENT: ${ENVIRONMENT}

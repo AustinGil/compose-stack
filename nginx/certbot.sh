@@ -16,7 +16,7 @@ function fail () {
 	# Run certbot to get cert
 	# Add --staging for testing purposes
 	# Add --force-renewal to force a renew
-	certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d "$DOMAIN" --email "$EMAIL" --staging --force-renewal
+	certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d "$DOMAIN" --email "$EMAIL" --force-renewal
 
 	# Move cert files to shared volume at folder name
 	cp /etc/letsencrypt/live/"$DOMAIN"/{cert.pem,privkey.pem,chain.pem,fullchain.pem} /data/certs/"$DOMAIN"

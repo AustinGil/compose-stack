@@ -19,12 +19,12 @@ RUN echo "📥 Installing dependencies" \
 	# /data/letsencrypt/
 	&& mkdir -p /var/lib/certbot \
 	&& echo "📝 Generating initial self-signed certificate" \
-	&& mkdir -p /data/certs/$domain/ \
+	&& mkdir -p /etc/letsencrypt/live/$domain/ \
 	&& openssl req -x509 -nodes -newkey rsa:4096 \
-	-keyout "/data/certs/$domain/privkey.pem" \
-	-out "/data/certs/$domain/cert.pem" \
-	-subj "/C=/ST=/L=/O=/CN=$domain" \
-	&& ln -sf /data/certs/$domain /data/certs/latest
+	-keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
+	-out "/etc/letsencrypt/live/$domain/cert.pem" \
+	-subj "/C=/ST=/L=/O=/CN=$domain"
+# && ln -sf /data/certs/$domain /etc/letsencrypt/live/$domain
 
 # 🛡
 # COPY ["./certbot.sh", "../.env", "/"]

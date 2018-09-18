@@ -21,9 +21,13 @@ RUN echo "📥 Installing dependencies" \
 	&& echo "📝 Generating initial self-signed certificate" \
 	&& mkdir -p /etc/letsencrypt/live/$domain/ \
 	&& openssl req -x509 -nodes -newkey rsa:4096 \
-	-keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
-	-out "/etc/letsencrypt/live/$domain/cert.pem" \
-	-subj "/C=/ST=/L=/O=/CN=$domain"
+	-keyout /etc/nginx/ssl/$domain/privkey.pem \
+	-out /etc/nginx/ssl/$domain/fullchain.pem \
+	-subj "/C=/ST=/L=/O=/CN=$domain" \
+	# -keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
+	# -out "/etc/letsencrypt/live/$domain/cert.pem" \
+	# -subj "/C=/ST=/L=/O=/CN=$domain" \
+	&& ln -sf /etc/nginx/ssl/$domain /etc/nginx/ssl/latest
 # && ln -sf /data/certs/$domain /etc/letsencrypt/live/$domain
 
 # 🛡

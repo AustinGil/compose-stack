@@ -22,7 +22,8 @@ RUN echo "📥 Installing dependencies" \
 	&& mkdir -p /etc/letsencrypt/live/$domain/ \
 	&& openssl req -x509 -nodes -newkey rsa:4096 \
 	-keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
-	-out "/etc/letsencrypt/live/$domain/cert.pem" \
+	# -out "/etc/letsencrypt/live/$domain/cert.pem" \
+	-out "/etc/letsencrypt/live/$domain/fullchain.pem" \
 	-subj "/C=/ST=/L=/O=/CN=$domain"
 # -keyout "/etc/nginx/ssl/$domain/privkey.pem" \
 # -out "/etc/nginx/ssl/$domain/fullchain.pem" \

@@ -30,4 +30,4 @@ RUN echo "📥 Installing dependencies" \
 # COPY ["./certbot.sh", "../.env", "/"]
 # RUN bash -c "bash /certbot.sh"
 COPY certbot.sh /
-RUN /certbot.sh
+# RUN /certbot.sh

@@ -19,19 +19,19 @@ RUN echo "📥 Installing dependencies" \
 	# /data/letsencrypt/
 	&& mkdir -p /var/lib/certbot \
 	&& echo "📝 Generating initial self-signed certificate" \
-	&& mkdir -p /etc/letsencrypt/live/$domain/ \
+	&& mkdir -p /etc/nginx/ssl/$domain \
+	# && mkdir -p /etc/letsencrypt/live/$domain/ \
 	&& openssl req -x509 -nodes -newkey rsa:4096 \
-	-keyout /etc/nginx/ssl/$domain/privkey.pem \
-	-out /etc/nginx/ssl/$domain/fullchain.pem \
+	-keyout "/etc/nginx/ssl/$domain/privkey.pem" \
+	-out "/etc/nginx/ssl/$domain/fullchain.pem" \
 	-subj "/C=/ST=/L=/O=/CN=$domain" \
-	# -keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
-	# -out "/etc/letsencrypt/live/$domain/cert.pem" \
-	# -subj "/C=/ST=/L=/O=/CN=$domain" \
 	&& ln -sf /etc/nginx/ssl/$domain /etc/nginx/ssl/latest
+# -keyout "/etc/letsencrypt/live/$domain/privkey.pem" \
+# -out "/etc/letsencrypt/live/$domain/cert.pem" \
+# -subj "/C=/ST=/L=/O=/CN=$domain" \
 # && ln -sf /data/certs/$domain /etc/letsencrypt/live/$domain
 
 # 🛡
 # COPY ["./certbot.sh", "../.env", "/"]
 # RUN bash -c "bash /certbot.sh"
 COPY certbot.sh /
-# RUN /certbot.sh

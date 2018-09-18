@@ -22,11 +22,14 @@ services:
       #   response: proxy_pass http://node:${NODE_PORT}
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot/letsencrypt/:/data/letsencrypt
-      - ./certbot/certs:/data/certs
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      # - ./certbot/letsencrypt/:/data/letsencrypt
+      # - ./certbot/certs:/data/certs
     ports:
       - 80:80
       - 443:443
+    env_file:
+      - .env
     restart: always
   # certbot:
   #   image: ${PROJECT_NAME}/certbot:latest

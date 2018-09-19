@@ -8,9 +8,14 @@
 6. Bring containers up: `docker-compose up -d`
 7. Run certbot (requires .env file and working domain): `docker-compose exec nginx /bin/certbot.sh`
 
+#### Setup a renewal cronjob
+
+1. Open crontab: `docker-compose exec nginx crontab -e`
+2. At the bottom, add: `@daily sleep $[ ( $RANDOM % 9000 ) + 1 ]s; certbot renew`
+
 ---
 
-### <a name="deps"></a>Installing Dependencies
+### <a name="deps"></a>Dependencies
 
 #### [Docker](https://docs.docker.com/)
 

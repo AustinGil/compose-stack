@@ -11,17 +11,16 @@ function fail () {
 
 function certbot_init () {
 	[ -n "${EMAIL}" ] || fail "⛔ EMAIL environment variable missing ⛔"
-	[ -n "${DOMAIN}" ] || fail "⛔ DOMAINS environment variable missing ⛔"
-	# [ -n "${DOMAINS}" ] || fail "DOMAINS environment variable missing"
-	# expand ${DOMAINS} and replace whitespace with commas, certbot accepts
-	# comma-separated lists of domains or multiple -d parameters
-	# DOMAINS=$(eval echo $DOMAINS | sed -e "s| \+|,|g")
+	[ -n "${DOMAINS}" ] || fail "⛔ DOMAINS environment variable missing ⛔"
+
+	# expand ${DOMAINS} and replace whitespace with commas.
+	DOMAINS=$(eval echo $DOMAINS | sed -e "s| \+|,|g")
+
+	echo "🔐 Requesting initial certificate for ${DOMAINS} 🔐"
 
 	# Add --staging for testing purposes
-	# Add --force-renewal to force a renew
-
-	echo "🔐 Requesting initial certificate for ${DOMAIN} 🔐"
-	certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d "$DOMAIN" --email "$EMAIL"
+	# Add --force-renewal to force a renewal
+	certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d "$DOMAINS" --email "$EMAIL"
 }
 
 function certbot_renew () {

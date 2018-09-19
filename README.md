@@ -27,7 +27,9 @@ Linux:
 
 ## Getting Server Up
 
-1. Copy sample.env to .env and edit variables (optionally pass in variables during run)
-2. Build images: `docker-compose build` (optionally accepts environment variables)
-3. Run containers: `docker-compose up` (optionally accepts environment variables)
-   **Note:** You can also build and run with the same command: `docker-compose up --build`
+1. Setup a server
+2. Point domain name to server IP address
+3. Copy or clone source code into server
+4. Copy sample.env to .env and edit variables
+5. Build images: `docker-compose build`
+6. Run containers: `docker-compose up`

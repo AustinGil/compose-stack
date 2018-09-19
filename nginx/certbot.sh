@@ -9,13 +9,6 @@ function fail () {
 	exit 1
 }
 
-function symlink () {
-	LATEST=$(ls -td1 /etc/letsencrypt/live/* | head -n1)
-	echo "Using live directory: ${LATEST}"
-	rm -f ${LINK_LOCATION}
-	ln -sf /etc/letsencrypt/live/$DOMAIN ${LINK_LOCATION}
-}
-
 function certbot_init () {
 	[ -n "${EMAIL}" ] || fail "⛔ EMAIL environment variable missing ⛔"
 	[ -n "${DOMAIN}" ] || fail "⛔ DOMAINS environment variable missing ⛔"
@@ -35,8 +28,15 @@ function certbot_renew () {
 	echo "⏰ Renewing existing certificate ⏰"
 	certbot renew
 }
-function certbot () {
+function certbot_start () {
 	[ -d /etc/letsencrypt/live ] && certbot_renew || certbot_init
+}
+
+function symlink () {
+	LATEST=$(ls -td1 /etc/letsencrypt/live/* | head -n1)
+	echo "Using live directory: ${LATEST}"
+	rm -f ${LINK_LOCATION}
+	ln -sf /etc/letsencrypt/live/$DOMAIN ${LINK_LOCATION}
 }
 
 function reload_nginx () {
@@ -44,6 +44,6 @@ function reload_nginx () {
 	nginx -s reload
 }
 
-certbot
+certbot_start
 symlink
 reload_nginx

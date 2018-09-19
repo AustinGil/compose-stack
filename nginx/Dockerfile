@@ -4,7 +4,7 @@ FROM nginx:alpine
 ARG domain
 ARG certs=/certs/temp
 
-COPY certbot.sh /
+COPY certbot.sh /bin
 
 RUN echo "📥 Installing dependencies 📥" \
 	&& apk update && apk upgrade \

@@ -8,20 +8,20 @@
 # SYMLINK=/etc/nginx/ssl/latest
 
 function fail () {
-    (>&2 echo $@)
-    exit 1
+	(>&2 echo $@)
+	exit 1
 }
 
-# if [ $ENVIRONMENT != "development" ]; then
 	# Run certbot to get cert
 	# Add --staging for testing purposes
 	# Add --force-renewal to force a renew
 	certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d "$DOMAIN" --email "$EMAIL"
 
 	# Move cert files to shared volume at folder name
-	# cp /etc/letsencrypt/live/"$DOMAIN"/{cert.pem,privkey.pem,chain.pem,fullchain.pem} /data/certs/"$DOMAIN"
-# else echo "No certs for dev stuff"
-# fi
+	cp /etc/letsencrypt/live/"$DOMAIN"/{cert.pem,privkey.pem,chain.pem,fullchain.pem} /data/certs/"$DOMAIN"
+
+	# certbot renew --dry-run
+
 
 # function log () {
 #     [ ${VERBOSE} -eq 0 ] || echo $@

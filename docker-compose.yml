@@ -1,46 +1,28 @@
 version: "3"
 services:
   node:
-    image: ${PROJECT_NAME}/node:latest
-    container_name: ${PROJECT_NAME}_node
+    image: ${PROJECT:-myapp}/node:latest
+    container_name: ${PROJECT:-myapp}_node
     build:
       context: .
       dockerfile: ./node/Dockerfile
       args:
         node_env: ${ENVIRONMENT}
-    expose:
-      - ${NODE_PORT}
     restart: always
 
   nginx:
-    image: ${PROJECT_NAME}/nginx:latest
-    container_name: ${PROJECT_NAME}_nginx
+    image: ${PROJECT:-myapp}/nginx:latest
+    container_name: ${PROJECT:-myapp}_nginx
     build:
       context: ./nginx
       args:
         domain: ${DOMAIN}
-        response: proxy_pass http://node:${NODE_PORT}
+    env_file:
+      - .env
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      # - ./certbot/letsencrypt/:/data/letsencrypt
-      # - ./certbot/certs:/data/certs
     ports:
       - 80:80
       - 443:443
-    env_file:
-      - .env
     restart: always
-  # certbot:
-  #   image: ${PROJECT_NAME}/certbot:latest
-  #   container_name: ${PROJECT_NAME}_certbot
-  #   build:
-  #     context: .
-  #     dockerfile: ./certbot/Dockerfile
-  #   volumes:
-  #     - ./certbot/letsencrypt:/data/letsencrypt
-  #     - ./certbot/certs:/data/certs
-  #   environment:
-  #     DOMAIN: ${DOMAIN}
-  #     EMAIL: ${EMAIL}
-  #     ENVIRONMENT: ${ENVIRONMENT}

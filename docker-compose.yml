@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./node/Dockerfile
       args:
-        node_env: ${ENVIRONMENT}
+        environment: ${ENVIRONMENT}
     restart: always
 
   nginx:

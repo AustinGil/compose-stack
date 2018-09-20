@@ -18,6 +18,5 @@ selenium-debug.log
 *.sln
 
 .env
-certs
-.well-known
+.gitmodules
 !.gitkeep

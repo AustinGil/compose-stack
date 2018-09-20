@@ -6,9 +6,12 @@ services:
     build:
       context: .
       dockerfile: ${NODE_DOCKERFILE:-./node.Dockerfile}
-      args:
-        environment: ${ENVIRONMENT:-production}
-        node_src: ${NODE_SRC:-./node}
+    environment:
+      - NODE_ENV=${ENVIRONMENT:-production}
+    volumes:
+      - ${NODE_SRC:-./node}:/node
+    working_dir: /node
+    command: ${NODE_CMD:-npm start}
     restart: always
 
   nginx:

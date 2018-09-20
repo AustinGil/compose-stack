@@ -44,7 +44,7 @@ Linux:
 1. `sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
 2. `sudo chmod +x /usr/local/bin/docker-compose`
 
-#### [Git](https://git-scm.com/) (Optional)
+#### [Git](https://git-scm.com/)
 
 Ubuntu:
 
@@ -58,6 +58,10 @@ CentOS (AWS Linux AMI):
 
 ## Helpful Commands
 
+- Add Git submodule: `git submodule add <git project url>`
+- NPM install in all submodules: `git submodule foreach npm install`
+- Update submodules: `git submodule update --remote`
+- Ignore dirty submodule: Add `ignore = dirty` to the submodule config for the specific one.
 - Restart containers: `docker-compose restart`
 - Rebuild containers: `docker-compose build`
 - Request certificates: `docker-compose exec nginx certbot certonly --webroot -w /var/lib/certbot/ --agree-tos --non-interactive --text -d example.com --email you@example.com`

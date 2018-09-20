@@ -1,8 +1,5 @@
-const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, "../.env") });
-const bodyParser = require("body-parser");
-
 const app = require("express")();
+const bodyParser = require("body-parser");
 
 app.use(require("helmet")());
 app.use(require("cors")());

@@ -5,9 +5,10 @@ services:
     container_name: ${PROJECT:-myapp}_node
     build:
       context: .
-      dockerfile: ./node/Dockerfile
+      dockerfile: ${NODE_DOCKERFILE:-./node.Dockerfile}
       args:
         environment: ${ENVIRONMENT:-production}
+        node_src: ${NODE_SRC:-./node}
     restart: always
 
   nginx:
@@ -15,10 +16,9 @@ services:
     container_name: ${PROJECT:-myapp}_nginx
     build:
       context: ./nginx
-      args:
-        domain: ${DOMAIN}
-    env_file:
-      - .env
+    environment:
+      - DOMAINS=${DOMAINS}
+      - EMAIL=${EMAIL}
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf

@@ -5,12 +5,13 @@ RUN apk update && apk upgrade && \
 # Other packages: bash nano
 
 ARG environment
+ARG node_src
+ENV NODE_ENV=$environment
 
 WORKDIR /node
 
-COPY ./node .
-COPY .env ..
+COPY $node_src .
 
-RUN NODE_ENV=$environment npm install
+RUN npm install
 
-CMD NODE_ENV=$environment npm start
+CMD npm start

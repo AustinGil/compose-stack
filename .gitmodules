@@ -1,0 +1,3 @@
+[submodule "MatryxExplorer"]
+	path = MatryxExplorer
+	url = git@github.com:matryx/MatryxExplorer.git

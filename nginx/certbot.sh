@@ -35,7 +35,7 @@ function symlink () {
 	LATEST=$(ls -td1 /etc/letsencrypt/live/* | head -n1)
 	echo "Using live directory: ${LATEST}"
 	rm -f ${LINK_LOCATION}
-	ln -sf /etc/letsencrypt/live/$DOMAIN ${LINK_LOCATION}
+	ln -sf ${LATEST} ${LINK_LOCATION}
 }
 
 function reload_nginx () {

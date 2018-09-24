@@ -1,6 +1,5 @@
 FROM nginx:alpine
 
-# Pulls domains from docker-compose.yml
 ARG certs_dir=/certs/temp
 
 COPY certbot.sh /bin
